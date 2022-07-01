@@ -1,9 +1,9 @@
 
 #include "minishell.h"
 
-int	get_first_char_pos(char *word, char c)
+int get_first_char_pos(char *word, char c)
 {
-	int	pos;
+	int pos;
 
 	pos = 0;
 	while (word[pos])
@@ -15,13 +15,13 @@ int	get_first_char_pos(char *word, char c)
 	return (-1);
 }
 
-char	*make_envs_for_print(char *content)
+char *make_envs_for_print(char *content)
 {
-	char	*tmp;
-	char	*tmp2;
-	char	*env_name;
-	char	*env_value;
-	char	*envs_for_print;
+	char *tmp;
+	char *tmp2;
+	char *env_name;
+	char *env_value;
+	char *envs_for_print;
 
 	if (ft_strchr(content, '=') == NULL)
 		envs_for_print = ft_strdup(content);
@@ -39,10 +39,10 @@ char	*make_envs_for_print(char *content)
 	return (envs_for_print);
 }
 
-int	print_envs(t_envs *envs)
+int print_envs(t_envs *envs)
 {
-	size_t	i;
-	char	**envs_for_print;
+	size_t i;
+	char **envs_for_print;
 
 	envs_for_print = (char **)malloc(sizeof(char *) * (envs->envs_num + 1));
 	if (!envs_for_print)
@@ -67,13 +67,13 @@ int	print_envs(t_envs *envs)
 	return (SUCCESS);
 }
 
-void	free_strings(char **strings)
+void free_strings(char **strings)
 {
-	size_t	i;
+	size_t i;
 
 	i = 0;
 	if (strings == NULL)
-		return ;
+		return;
 	while (strings[i])
 	{
 		free(strings[i]);
@@ -83,10 +83,10 @@ void	free_strings(char **strings)
 	free(strings);
 }
 
-int main ()
-{
-	t_envs	*envs;
+// int main ()
+// {
+// 	t_envs	*envs;
 
-	print_envs(envs);
-	return (0);
-}
+// 	print_envs(envs);
+// 	return (0);
+// }

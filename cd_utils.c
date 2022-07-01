@@ -1,13 +1,13 @@
 
 #include "minishell.h"
 
-void	free_strings(char **strings)
+void free_strings(char **strings)
 {
-	size_t	i;
+	size_t i;
 
 	i = 0;
 	if (strings == NULL)
-		return ;
+		return;
 	while (strings[i])
 	{
 		free(strings[i]);
@@ -17,10 +17,10 @@ void	free_strings(char **strings)
 	free(strings);
 }
 
-static char	*make_tmp_path(char **argv, char *path)
+static char *make_tmp_path(char **argv, char *path)
 {
-	char	*tmp;
-	char	*tmp2;
+	char *tmp;
+	char *tmp2;
 
 	if (path[ft_strlen(path) - 1] == '/')
 		tmp = ft_strjoin(path, argv[1]);
@@ -33,23 +33,23 @@ static char	*make_tmp_path(char **argv, char *path)
 	return (tmp);
 }
 
-static void	concat_cdpath(char **argv, char **curpath, char *cdpath)
+static void concat_cdpath(char **argv, char **curpath, char *cdpath)
 {
-	size_t	i;
-	char	*tmp;
-	char	**paths;
+	size_t i;
+	char *tmp;
+	char **paths;
 
 	i = 0;
 	paths = ft_split(cdpath, ':');
 	if (paths == NULL)
-		return ;
+		return;
 	while (paths[i])
 	{
 		tmp = make_tmp_path(argv, paths[i]);
 		if (access(tmp, X_OK) == SUCCESS)
 		{
 			*curpath = tmp;
-			break ;
+			break;
 		}
 		free(tmp);
 		i++;
@@ -57,16 +57,15 @@ static void	concat_cdpath(char **argv, char **curpath, char *cdpath)
 	free_strings(paths);
 }
 
-static int	is_relative_path(char **argv)
+static int is_relative_path(char **argv)
 {
-	return (!ft_strncmp(argv[1], ".", ft_strlen(argv[1]) + 1)
-		|| !ft_strncmp(argv[1], "..", ft_strlen(argv[1]) + 1));
+	return (!ft_strncmp(argv[1], ".", ft_strlen(argv[1]) + 1) || !ft_strncmp(argv[1], "..", ft_strlen(argv[1]) + 1));
 }
 
-void	set_curpath(char **argv, t_envs **envs, char **curpath)
+void set_curpath(char **argv, t_envs **envs, char **curpath)
 {
-	char	*tmp;
-	char	*cdpath;
+	char *tmp;
+	char *cdpath;
 
 	if (*argv[1] == '/')
 		*curpath = ft_strdup(argv[1]);
